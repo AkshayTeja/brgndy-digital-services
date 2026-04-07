@@ -24,7 +24,6 @@
         --glass-border-strong: rgba(255, 255, 255, 0.12);
         --nav-h: 72px;
       }
-
       *,
       *::before,
       *::after {
@@ -43,7 +42,6 @@
         overflow-x: hidden;
         cursor: none;
       }
-
       @media (hover: none) {
         body {
           cursor: auto;
@@ -53,7 +51,6 @@
           display: none;
         }
       }
-
       .cursor {
         position: fixed;
         top: 0;
@@ -84,7 +81,7 @@
         z-index: 9998;
       }
 
-      /* NAV */
+      /* ── NAV ── */
       nav {
         position: fixed;
         top: 0;
@@ -137,10 +134,6 @@
         color: var(--cream);
       }
       .nav-cta {
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
         color: var(--obsidian) !important;
         background: var(--cream);
         padding: 9px 18px;
@@ -150,7 +143,6 @@
         background: var(--burgundy-glow) !important;
         color: var(--white) !important;
       }
-
       .hamburger {
         display: none;
         flex-direction: column;
@@ -177,7 +169,6 @@
       .hamburger.open span:nth-child(3) {
         transform: translateY(-6.5px) rotate(-45deg);
       }
-
       .mobile-menu {
         display: none;
         position: fixed;
@@ -224,16 +215,15 @@
         text-align: center;
         padding: 14px !important;
         border: none !important;
-        border-bottom: none !important;
       }
 
-      /* HERO */
+      /* ── HERO ── */
       #hero {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        padding: var(--nav-h) 48px 80px;
+        padding: calc(var(--nav-h) + 40px) 48px 80px;
         position: relative;
         overflow: hidden;
       }
@@ -290,7 +280,7 @@
       }
       .hero-title {
         font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(56px, 9vw, 150px);
+        font-size: clamp(52px, 9vw, 150px);
         line-height: 0.92;
         letter-spacing: 0.02em;
         color: var(--white);
@@ -373,7 +363,6 @@
         color: var(--cream);
         border-color: rgba(255, 255, 255, 0.3);
       }
-
       .hero-stats {
         position: absolute;
         right: 48px;
@@ -401,7 +390,6 @@
         color: var(--cream-dim);
         margin-top: 4px;
       }
-
       .scroll-indicator {
         position: absolute;
         bottom: 28px;
@@ -433,7 +421,7 @@
         color: var(--cream-dim);
       }
 
-      /* MARQUEE */
+      /* ── MARQUEE ── */
       .marquee-section {
         border-top: 1px solid var(--glass-border);
         border-bottom: 1px solid var(--glass-border);
@@ -459,7 +447,7 @@
         margin-right: 36px;
       }
 
-      /* SECTION BASE */
+      /* ── SECTION BASE ── */
       section {
         padding: 100px 48px;
         position: relative;
@@ -480,7 +468,7 @@
         color: var(--white);
       }
 
-      /* SERVICES */
+      /* ── SERVICES ── */
       #services {
         background: var(--obsidian);
       }
@@ -579,100 +567,98 @@
         padding: 4px 9px;
       }
 
-      /* NICHES */
+      /* ── NICHES ── */
       #niches {
-        background: linear-gradient(180deg, var(--obsidian) 0%, #0d0505 100%);
+        padding: 100px 48px 120px;
+        background: var(--obsidian-2);
       }
       .niches-intro {
-        max-width: 560px;
-        margin-bottom: 56px;
+        text-align: center;
+        max-width: 680px;
+        margin: 0 auto 70px;
       }
       .niches-intro p {
         font-size: 15px;
-        line-height: 1.8;
+        line-height: 1.75;
         color: var(--cream-dim);
-        margin-top: 18px;
+        margin-top: 16px;
       }
       .niches-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 2px;
+        gap: 24px;
       }
       .niche-card {
         position: relative;
         overflow: hidden;
-        aspect-ratio: 3/4;
-        cursor: none;
-        background: var(--obsidian-3);
-        border: 1px solid var(--glass-border);
-        transition: all 0.5s ease;
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      .niche-card.visible {
-        animation: fadeUp 0.7s forwards;
+        border-radius: 16px;
+        min-height: 420px;
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
       }
       .niche-card:hover {
-        border-color: rgba(155, 16, 16, 0.4);
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
       }
       .niche-bg {
         position: absolute;
         inset: 0;
-        opacity: 0.15;
-        transition:
-          opacity 0.5s,
-          transform 0.6s;
+        z-index: 1;
+        transition: transform 0.6s ease;
       }
       .niche-card:hover .niche-bg {
-        opacity: 0.25;
-        transform: scale(1.05);
-      }
-      .niche-content {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 28px;
-        background: linear-gradient(
-          to top,
-          rgba(10, 10, 10, 0.9) 30%,
-          transparent 100%
-        );
+        transform: scale(1.08);
       }
       .niche-num {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 64px;
-        line-height: 1;
-        color: rgba(155, 16, 16, 0.1);
         position: absolute;
-        top: 16px;
-        right: 20px;
-      }
-      .niche-name {
+        top: 32px;
+        right: 32px;
         font-family: "Bebas Neue", sans-serif;
-        font-size: 26px;
-        letter-spacing: 0.05em;
-        color: var(--white);
-        margin-bottom: 6px;
+        font-size: 4.5rem;
+        font-weight: 900;
+        line-height: 1;
+        opacity: 0.15;
+        z-index: 2;
+        color: #fff;
+      }
+      .niche-content {
+        position: relative;
+        z-index: 3;
+        padding: 48px 40px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
       }
       .niche-sub {
         font-family: "DM Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.15em;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
         text-transform: uppercase;
-        color: var(--burgundy-glow);
-        margin-bottom: 10px;
+        opacity: 0.7;
+        margin-bottom: 8px;
+        color: var(--cream);
+      }
+      .niche-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2.8rem;
+        font-weight: 800;
+        line-height: 1.05;
+        margin-bottom: 20px;
+        color: #fff;
       }
       .niche-desc {
-        font-size: 12px;
-        line-height: 1.65;
-        color: var(--cream-dim);
+        font-family: "DM Sans", sans-serif;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-top: auto;
+        color: #ddd;
       }
 
-      /* STACK */
+      /* ── STACK ── */
       #stack {
         background: var(--obsidian-2);
+        padding: 100px 48px;
       }
       .stack-header {
         margin-bottom: 56px;
@@ -731,80 +717,86 @@
         line-height: 1.5;
       }
 
-      /* PROCESS */
+      /* ── PROCESS ── */
       #process {
         background: var(--obsidian);
+        padding: 100px 48px 120px;
       }
-      .process-layout {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 72px;
-        align-items: start;
+      .process-intro {
+        text-align: center;
+        max-width: 680px;
+        margin: 0 auto 70px;
       }
-      .process-sticky {
-        position: sticky;
-        top: 96px;
-      }
-      .process-sticky p {
-        margin-top: 18px;
-        font-size: 14px;
-        line-height: 1.8;
+      .process-intro p {
+        font-size: 15px;
+        line-height: 1.75;
         color: var(--cream-dim);
+        margin-top: 16px;
       }
-      .process-steps {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
       }
-      .process-step {
-        border: 1px solid var(--glass-border);
-        padding: 36px;
+      .process-card {
         position: relative;
         background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        min-height: 380px;
+        padding: 48px 40px;
         overflow: hidden;
-        transition: all 0.3s;
-        opacity: 0;
-        transform: translateX(20px);
+        transition: all 0.4s ease;
       }
-      .process-step.visible {
-        animation: fadeRight 0.6s forwards;
-      }
-      .process-step:hover {
-        border-color: rgba(155, 16, 16, 0.3);
-        background: rgba(74, 4, 4, 0.05);
+      .process-card:hover {
+        transform: translateY(-12px);
+        border-color: rgba(155, 16, 16, 0.4);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
       }
       .step-num {
         font-family: "Bebas Neue", sans-serif;
-        font-size: 64px;
-        color: rgba(255, 255, 255, 0.03);
-        position: absolute;
-        right: 20px;
-        top: 0;
+        font-size: 4.5rem;
+        font-weight: 900;
         line-height: 1;
+        opacity: 0.12;
+        color: #fff;
+        position: absolute;
+        top: 32px;
+        right: 32px;
+        z-index: 1;
         pointer-events: none;
+      }
+      .process-content {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
       }
       .step-label {
         font-family: "DM Mono", monospace;
-        font-size: 10px;
-        letter-spacing: 0.3em;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
         text-transform: uppercase;
         color: var(--burgundy-glow);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
       .step-title {
         font-family: "Bebas Neue", sans-serif;
-        font-size: 23px;
-        letter-spacing: 0.05em;
+        font-size: 2.1rem;
+        line-height: 1.1;
         color: var(--white);
-        margin-bottom: 10px;
+        margin-bottom: 20px;
       }
       .step-desc {
-        font-size: 13px;
-        line-height: 1.7;
+        font-family: "DM Sans", sans-serif;
+        font-size: 1rem;
+        line-height: 1.6;
         color: var(--cream-dim);
+        margin-top: auto;
       }
 
-      /* CONTACT */
+      /* ── CONTACT ── */
       #contact {
         background: linear-gradient(135deg, #0d0505 0%, var(--obsidian) 100%);
       }
@@ -921,7 +913,7 @@
         transform: translateX(0);
       }
 
-      /* FOOTER */
+      /* ── FOOTER ── */
       footer {
         background: #060606;
         padding: 32px 48px;
@@ -974,7 +966,7 @@
         );
       }
 
-      /* ANIMATIONS */
+      /* ── ANIMATIONS ── */
       @keyframes fadeUp {
         from {
           opacity: 0;
@@ -983,16 +975,6 @@
         to {
           opacity: 1;
           transform: translateY(0);
-        }
-      }
-      @keyframes fadeRight {
-        from {
-          opacity: 0;
-          transform: translateX(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
         }
       }
       @keyframes marquee {
@@ -1013,7 +995,7 @@
         }
       }
 
-      /* RESPONSIVE */
+      /* ── RESPONSIVE: TABLET ── */
       @media (max-width: 1024px) {
         nav {
           padding: 0 32px;
@@ -1022,7 +1004,14 @@
           padding: 80px 32px;
         }
         #hero {
-          padding: var(--nav-h) 32px 80px;
+          padding: calc(var(--nav-h) + 40px) 32px 80px;
+        }
+        #niches,
+        #process {
+          padding: 80px 32px 100px;
+        }
+        #stack {
+          padding: 80px 32px;
         }
         .services-grid {
           grid-template-columns: 1fr 1fr;
@@ -1033,12 +1022,8 @@
         .stack-grid {
           grid-template-columns: 1fr 1fr;
         }
-        .process-layout {
-          grid-template-columns: 1fr;
-          gap: 40px;
-        }
-        .process-sticky {
-          position: static;
+        .process-grid {
+          grid-template-columns: 1fr 1fr;
         }
         .contact-layout {
           grid-template-columns: 1fr;
@@ -1049,10 +1034,12 @@
         }
       }
 
+      /* ── RESPONSIVE: MOBILE ── */
       @media (max-width: 768px) {
         :root {
           --nav-h: 60px;
         }
+
         nav {
           padding: 0 20px;
         }
@@ -1065,23 +1052,27 @@
         .mobile-menu {
           display: flex;
         }
-        section {
-          padding: 64px 20px;
-        }
+
+        /* Hero */
         #hero {
-          padding: var(--nav-h) 20px 64px;
-        }
-        .logo {
-          font-size: 14px;
+          padding: calc(var(--nav-h) + 24px) 20px 64px;
+          min-height: 100svh;
+          justify-content: flex-end;
         }
         .hero-title {
-          font-size: clamp(44px, 12vw, 68px);
+          font-size: clamp(44px, 13vw, 68px);
         }
         .hero-sub {
           font-size: 14px;
+          margin-top: 20px;
         }
         .hero-actions {
           gap: 10px;
+          margin-top: 32px;
+        }
+        .hero-eyebrow {
+          font-size: 10px;
+          margin-bottom: 16px;
         }
         .btn-primary,
         .btn-ghost {
@@ -1091,20 +1082,100 @@
         .scroll-indicator {
           display: none;
         }
+
+        /* Sections */
+        section {
+          padding: 64px 20px;
+        }
+        #niches,
+        #process {
+          padding: 64px 20px 80px;
+        }
+        #stack {
+          padding: 64px 20px;
+        }
+        .section-title {
+          font-size: clamp(34px, 10vw, 52px);
+        }
+        .niches-intro,
+        .process-intro {
+          margin-bottom: 40px;
+        }
+
+        /* Services */
         .services-header {
           flex-direction: column;
+          gap: 16px;
+          margin-bottom: 36px;
+          align-items: flex-start; /* ← This is the key fix */
+          text-align: left;
+        }
+        .services-header p {
+          max-width: 100% !important;
         }
         .services-grid {
           grid-template-columns: 1fr;
+          gap: 2px;
         }
+        .service-card {
+          padding: 32px 24px;
+        }
+
+        /* Niches */
         .niches-grid {
           grid-template-columns: 1fr;
+          gap: 20px;
         }
         .niche-card {
-          aspect-ratio: 16/9;
+          min-height: 300px;
+          border-radius: 12px;
         }
+        .niche-content {
+          padding: 36px 28px;
+        }
+        .niche-name {
+          font-size: 2.4rem;
+        }
+        .niche-num {
+          font-size: 3.5rem;
+          top: 24px;
+          right: 24px;
+        }
+        .niche-desc {
+          font-size: 0.95rem;
+        }
+
+        /* Stack */
         .stack-grid {
           grid-template-columns: 1fr 1fr;
+          gap: 2px;
+        }
+        .stack-card {
+          padding: 28px 16px;
+        }
+
+        /* Process */
+        .process-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .process-card {
+          min-height: auto;
+          padding: 36px 28px;
+          border-radius: 12px;
+        }
+        .step-title {
+          font-size: 1.8rem;
+        }
+        .step-num {
+          font-size: 3.5rem;
+          top: 24px;
+          right: 24px;
+        }
+
+        /* Contact */
+        .contact-layout {
+          gap: 40px;
         }
         .form-row {
           grid-template-columns: 1fr;
@@ -1114,25 +1185,63 @@
           text-align: center;
           align-self: stretch;
         }
+
+        /* Footer */
         footer {
           flex-direction: column;
           text-align: center;
           padding: 24px 20px;
+          gap: 12px;
         }
         .footer-links {
           justify-content: center;
         }
-        .section-title {
-          font-size: clamp(34px, 10vw, 52px);
-        }
       }
 
+      /* ── RESPONSIVE: SMALL MOBILE ── */
       @media (max-width: 480px) {
-        .stack-grid {
-          grid-template-columns: 1fr;
+        #hero {
+          padding: calc(var(--nav-h) + 16px) 16px 56px;
+        }
+        section {
+          padding: 56px 16px;
+        }
+        #niches,
+        #process {
+          padding: 56px 16px 72px;
+        }
+        #stack {
+          padding: 56px 16px;
         }
         .hero-title {
-          font-size: clamp(38px, 13vw, 54px);
+          font-size: clamp(38px, 14vw, 54px);
+        }
+        .hero-sub {
+          font-size: 13px;
+        }
+        .stack-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .niche-card {
+          min-height: 280px;
+        }
+        .niche-content {
+          padding: 28px 20px;
+        }
+        .niche-name {
+          font-size: 2.1rem;
+        }
+        .process-card {
+          padding: 28px 20px;
+        }
+        .service-card {
+          padding: 28px 20px;
+        }
+        footer {
+          padding: 20px 16px;
+        }
+        .contact-layout {
+          gap: 32px;
         }
       }
     </style>
@@ -1169,7 +1278,7 @@
       <div class="hero-bg"></div>
       <div class="hero-noise"></div>
       <div class="hero-grid"></div>
-      <div class="hero-eyebrow">— BRGNDY Digital Services / Est. 2024</div>
+      <div class="hero-eyebrow">— BRGNDY Digital Services / Est. 2026</div>
       <h1 class="hero-title">
         YOUR BRAND.<br /><span class="accent">ONLINE.</span><br />DONE RIGHT.
       </h1>
@@ -1340,7 +1449,7 @@
           ></div>
           <div class="niche-num">01</div>
           <div class="niche-content">
-            <div class="niche-sub">Fitness & Wellness</div>
+            <div class="niche-sub">Fitness &amp; Wellness</div>
             <div class="niche-name">GYMS</div>
             <p class="niche-desc">
               From boutique fitness studios to large gyms — we build sites that
@@ -1348,7 +1457,7 @@
             </p>
           </div>
         </div>
-        <div class="niche-card" style="animation-delay: 0.15s">
+        <div class="niche-card">
           <div
             class="niche-bg"
             style="
@@ -1361,7 +1470,7 @@
           ></div>
           <div class="niche-num">02</div>
           <div class="niche-content">
-            <div class="niche-sub">Tech & Non-Tech</div>
+            <div class="niche-sub">Tech &amp; Non-Tech</div>
             <div class="niche-name">STARTUPS</div>
             <p class="niche-desc">
               Seed-to-Series B and bootstrapped founders. We ship
@@ -1370,7 +1479,7 @@
             </p>
           </div>
         </div>
-        <div class="niche-card" style="animation-delay: 0.3s">
+        <div class="niche-card">
           <div
             class="niche-bg"
             style="
@@ -1383,7 +1492,7 @@
           ></div>
           <div class="niche-num">03</div>
           <div class="niche-content">
-            <div class="niche-sub">Food & Hospitality</div>
+            <div class="niche-sub">Food &amp; Hospitality</div>
             <div class="niche-name">CAFES</div>
             <p class="niche-desc">
               Specialty coffee shops and roasteries that need a presence as
@@ -1413,7 +1522,7 @@
           <div class="stack-logo">SB</div>
           <div class="stack-name">Supabase</div>
           <p class="stack-use">
-            Postgres, Auth, Storage, Realtime & Edge Functions
+            Postgres, Auth, Storage, Realtime &amp; Edge Functions
           </p>
         </div>
         <div class="stack-card" style="animation-delay: 0.2s">
@@ -1435,28 +1544,30 @@
 
     <!-- PROCESS -->
     <section id="process">
-      <div class="process-layout">
-        <div class="process-sticky">
-          <div class="section-label">05 — How It Works</div>
-          <h2 class="section-title">OUR<br />PROCESS.</h2>
-          <p>
-            Three clear phases. Honest communication throughout. No surprises —
-            just clean execution from brief to launch.
-          </p>
-        </div>
-        <div class="process-steps">
-          <div class="process-step">
-            <div class="step-num">01</div>
+      <div class="process-intro">
+        <div class="section-label">05 — How It Works</div>
+        <h2 class="section-title">OUR<br />PROCESS.</h2>
+        <p>
+          Three clear phases. Honest communication throughout. No surprises —
+          just clean execution from brief to launch.
+        </p>
+      </div>
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="step-num">01</div>
+          <div class="process-content">
             <div class="step-label">Phase One</div>
-            <div class="step-title">Requirements & Communication</div>
+            <div class="step-title">Requirements &amp; Communication</div>
             <p class="step-desc">
               We begin by understanding your business, goals, and audience
               through clear, structured conversations. No assumptions — we ask
               the right questions so the build is right the first time.
             </p>
           </div>
-          <div class="process-step" style="animation-delay: 0.1s">
-            <div class="step-num">02</div>
+        </div>
+        <div class="process-card">
+          <div class="step-num">02</div>
+          <div class="process-content">
             <div class="step-label">Phase Two</div>
             <div class="step-title">Development</div>
             <p class="step-desc">
@@ -1465,10 +1576,12 @@
               get regular previews and can give feedback at every stage.
             </p>
           </div>
-          <div class="process-step" style="animation-delay: 0.2s">
-            <div class="step-num">03</div>
+        </div>
+        <div class="process-card">
+          <div class="step-num">03</div>
+          <div class="process-content">
             <div class="step-label">Phase Three</div>
-            <div class="step-title">Approval, Deploy & Closure</div>
+            <div class="step-title">Approval, Deploy &amp; Closure</div>
             <p class="step-desc">
               You review the final build, request any last tweaks, and sign off.
               We handle deployment, hand over all assets, and close the project
@@ -1582,7 +1695,6 @@
     </footer>
 
     <script>
-      // Cursor (desktop only)
       const isMouse = window.matchMedia("(hover: hover)").matches;
       if (isMouse) {
         const dot = document.querySelector(".cursor-dot");
@@ -1605,7 +1717,9 @@
           requestAnimationFrame(loop);
         })();
         document
-          .querySelectorAll("a,button,.service-card,.niche-card,.stack-card")
+          .querySelectorAll(
+            "a,button,.service-card,.niche-card,.stack-card,.process-card",
+          )
           .forEach((el) => {
             el.addEventListener("mouseenter", () => {
               ring.style.width = "60px";
@@ -1620,7 +1734,6 @@
           });
       }
 
-      // Nav scroll
       const nav = document.getElementById("nav");
       window.addEventListener(
         "scroll",
@@ -1628,7 +1741,6 @@
         { passive: true },
       );
 
-      // Hamburger
       const hamburger = document.getElementById("hamburger");
       const mobileMenu = document.getElementById("mobileMenu");
       hamburger.addEventListener("click", () => {
@@ -1642,7 +1754,6 @@
         });
       });
 
-      // Scroll animations
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
@@ -1652,10 +1763,9 @@
         { threshold: 0.1 },
       );
       document
-        .querySelectorAll(".service-card,.niche-card,.stack-card,.process-step")
+        .querySelectorAll(".service-card,.stack-card")
         .forEach((el) => observer.observe(el));
 
-      // Contact form → mailto
       document.getElementById("sendBtn").addEventListener("click", () => {
         const name = document.getElementById("f-name").value.trim();
         const company = document.getElementById("f-company").value.trim();
