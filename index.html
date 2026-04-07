@@ -1055,24 +1055,21 @@
 
         /* Hero */
         #hero {
-          padding: calc(var(--nav-h) + 24px) 20px 64px;
-          min-height: 100svh;
-          justify-content: flex-end;
+          padding: calc(var(--nav-h) + 20px) 20px 40px; /* Reduced top and bottom padding */
+          min-height: 80svh; /* Changed from 100svh to prevent excessive empty space */
+          justify-content: center; /* Center content vertically instead of pushing to bottom */
         }
         .hero-title {
           font-size: clamp(44px, 13vw, 68px);
         }
+        .hero-eyebrow {
+          margin-bottom: 12px; /* Halved from 24px */
+        }
         .hero-sub {
-          font-size: 14px;
-          margin-top: 20px;
+          margin-top: 16px; /* Reduced from 28px */
         }
         .hero-actions {
-          gap: 10px;
-          margin-top: 32px;
-        }
-        .hero-eyebrow {
-          font-size: 10px;
-          margin-bottom: 16px;
+          margin-top: 24px; /* Reduced from 48px */
         }
         .btn-primary,
         .btn-ghost {
