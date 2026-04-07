@@ -1,0 +1,1713 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BRGNDY — Digital Flagship Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --obsidian: #0a0a0a;
+        --obsidian-2: #111111;
+        --obsidian-3: #1a1a1a;
+        --burgundy: #4a0404;
+        --burgundy-light: #7a0808;
+        --burgundy-glow: #9b1010;
+        --cream: #e8e0d5;
+        --cream-dim: #9e9590;
+        --white: #fafafa;
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.07);
+        --glass-border-strong: rgba(255, 255, 255, 0.12);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--obsidian);
+        color: var(--cream);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* ── CURSOR ── */
+      .cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        pointer-events: none;
+        mix-blend-mode: difference;
+      }
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--cream);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease;
+      }
+      .cursor-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        border: 1px solid rgba(232, 224, 213, 0.4);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 0.18s ease;
+        pointer-events: none;
+        z-index: 9998;
+      }
+      body:hover .cursor-dot {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 48px;
+        background: linear-gradient(
+          to bottom,
+          rgba(10, 10, 10, 0.9) 0%,
+          transparent 100%
+        );
+        backdrop-filter: blur(0px);
+        transition: all 0.4s ease;
+      }
+      nav.scrolled {
+        background: rgba(10, 10, 10, 0.85);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+        padding: 16px 48px;
+      }
+      .logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        letter-spacing: 0.15em;
+        color: var(--white);
+      }
+      .logo span {
+        color: var(--burgundy-glow);
+      }
+      .nav-links {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+      }
+      .nav-links a {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        font-weight: 300;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--cream);
+      }
+      .nav-cta {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--obsidian) !important;
+        background: var(--cream);
+        padding: 10px 20px;
+        transition: background 0.3s !important;
+      }
+      .nav-cta:hover {
+        background: var(--burgundy-glow) !important;
+        color: var(--white) !important;
+      }
+
+      /* ── HERO ── */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 0 48px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 60% 40%,
+            rgba(74, 4, 4, 0.25) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 40% 40% at 20% 80%,
+            rgba(74, 4, 4, 0.1) 0%,
+            transparent 60%
+          ),
+          var(--obsidian);
+      }
+      .hero-noise {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        opacity: 0.5;
+      }
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 80px 80px;
+        mask-image: radial-gradient(
+          ellipse 80% 70% at 50% 50%,
+          black 30%,
+          transparent 100%
+        );
+      }
+
+      .hero-eyebrow {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--burgundy-glow);
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.8s 0.2s forwards;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(72px, 10vw, 160px);
+        line-height: 0.9;
+        letter-spacing: 0.02em;
+        color: var(--white);
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.9s 0.4s forwards;
+      }
+      .hero-title .accent {
+        color: var(--burgundy-glow);
+      }
+      .hero-sub {
+        max-width: 520px;
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: var(--cream-dim);
+        margin-top: 28px;
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.8s 0.7s forwards;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin-top: 48px;
+        position: relative;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeUp 0.8s 0.9s forwards;
+      }
+      .btn-primary {
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        background: var(--burgundy-glow);
+        color: var(--white);
+        padding: 14px 32px;
+        border: none;
+        cursor: none;
+        transition: all 0.3s;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-primary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      .btn-primary:hover::after {
+        transform: translateX(0);
+      }
+      .btn-ghost {
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        background: transparent;
+        color: var(--cream-dim);
+        padding: 14px 32px;
+        border: 1px solid var(--glass-border-strong);
+        cursor: none;
+        transition: all 0.3s;
+        text-decoration: none;
+      }
+      .btn-ghost:hover {
+        color: var(--cream);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .hero-stats {
+        position: absolute;
+        right: 48px;
+        bottom: 80px;
+        display: flex;
+        gap: 48px;
+        z-index: 2;
+        opacity: 0;
+        animation: fadeUp 0.8s 1.1s forwards;
+      }
+      .stat-item {
+        text-align: right;
+      }
+      .stat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 48px;
+        line-height: 1;
+        color: var(--white);
+      }
+      .stat-label {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+        margin-top: 4px;
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        animation: fadeUp 0.8s 1.3s forwards;
+      }
+      .scroll-line {
+        width: 1px;
+        height: 60px;
+        background: linear-gradient(
+          to bottom,
+          var(--burgundy-glow),
+          transparent
+        );
+        animation: scrollPulse 2s infinite;
+      }
+      .scroll-text {
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+        writing-mode: vertical-rl;
+      }
+
+      /* ── MARQUEE ── */
+      .marquee-section {
+        border-top: 1px solid var(--glass-border);
+        border-bottom: 1px solid var(--glass-border);
+        padding: 20px 0;
+        overflow: hidden;
+        background: rgba(74, 4, 4, 0.05);
+      }
+      .marquee-track {
+        display: flex;
+        gap: 0;
+        animation: marquee 30s linear infinite;
+        white-space: nowrap;
+      }
+      .marquee-item {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 14px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+        padding: 0 40px;
+      }
+      .marquee-item span {
+        color: var(--burgundy-glow);
+        margin-right: 40px;
+      }
+
+      /* ── SECTION SHELL ── */
+      section {
+        padding: 120px 48px;
+        position: relative;
+      }
+      .section-label {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--burgundy-glow);
+        margin-bottom: 16px;
+      }
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(48px, 6vw, 96px);
+        line-height: 1;
+        letter-spacing: 0.02em;
+        color: var(--white);
+      }
+
+      /* ── SERVICES ── */
+      #services {
+        background: var(--obsidian);
+      }
+      .services-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 80px;
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+      }
+      .service-card {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        padding: 48px 40px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .service-card.visible {
+        animation: fadeUp 0.7s forwards;
+      }
+      .service-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(74, 4, 4, 0.15) 0%,
+          transparent 60%
+        );
+        transition: opacity 0.4s;
+      }
+      .service-card:hover {
+        border-color: rgba(155, 16, 16, 0.3);
+        transform: translateY(-4px);
+      }
+      .service-card:hover::before {
+        opacity: 1;
+      }
+      .service-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        color: var(--burgundy-glow);
+        margin-bottom: 32px;
+      }
+      .service-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(74, 4, 4, 0.2);
+        border: 1px solid rgba(155, 16, 16, 0.2);
+      }
+      .service-icon svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--burgundy-glow);
+      }
+      .service-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        letter-spacing: 0.05em;
+        color: var(--white);
+        margin-bottom: 16px;
+      }
+      .service-desc {
+        font-size: 14px;
+        line-height: 1.75;
+        color: var(--cream-dim);
+      }
+      .service-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 28px;
+      }
+      .tag {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+        border: 1px solid var(--glass-border);
+        padding: 5px 10px;
+      }
+
+      /* ── NICHES ── */
+      #niches {
+        background: linear-gradient(180deg, var(--obsidian) 0%, #0d0505 100%);
+      }
+      .niches-intro {
+        max-width: 560px;
+        margin-bottom: 80px;
+      }
+      .niches-intro p {
+        font-size: 15px;
+        line-height: 1.8;
+        color: var(--cream-dim);
+        margin-top: 24px;
+      }
+      .niches-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        margin-bottom: 80px;
+      }
+      .niche-card {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 3/4;
+        cursor: none;
+        background: var(--obsidian-3);
+        border: 1px solid var(--glass-border);
+        transition: all 0.5s ease;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .niche-card.visible {
+        animation: fadeUp 0.7s forwards;
+      }
+      .niche-card:hover {
+        border-color: rgba(155, 16, 16, 0.4);
+      }
+      .niche-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.15;
+        transition:
+          opacity 0.5s,
+          transform 0.6s;
+      }
+      .niche-card:hover .niche-bg {
+        opacity: 0.25;
+        transform: scale(1.05);
+      }
+      .niche-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 40px;
+        background: linear-gradient(
+          to top,
+          rgba(10, 10, 10, 0.9) 30%,
+          transparent 100%
+        );
+      }
+      .niche-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 80px;
+        line-height: 1;
+        color: rgba(155, 16, 16, 0.1);
+        position: absolute;
+        top: 24px;
+        right: 28px;
+      }
+      .niche-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        letter-spacing: 0.05em;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .niche-sub {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--burgundy-glow);
+        margin-bottom: 16px;
+      }
+      .niche-desc {
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--cream-dim);
+      }
+
+      /* ── STACK ── */
+      #stack {
+        background: var(--obsidian-2);
+      }
+      .stack-header {
+        margin-bottom: 80px;
+      }
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+      }
+      .stack-card {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        padding: 48px 32px;
+        text-align: center;
+        transition: all 0.3s;
+        cursor: none;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .stack-card.visible {
+        animation: fadeUp 0.6s forwards;
+      }
+      .stack-card:hover {
+        background: rgba(74, 4, 4, 0.1);
+        border-color: rgba(155, 16, 16, 0.3);
+        transform: translateY(-4px);
+      }
+      .stack-logo {
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        color: var(--cream-dim);
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--glass-border);
+        transition: all 0.3s;
+      }
+      .stack-card:hover .stack-logo {
+        color: var(--cream);
+        border-color: rgba(155, 16, 16, 0.3);
+      }
+      .stack-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.08em;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .stack-use {
+        font-size: 12px;
+        color: var(--cream-dim);
+        line-height: 1.5;
+      }
+
+      /* ── PROCESS ── */
+      #process {
+        background: var(--obsidian);
+      }
+      .process-layout {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .process-sticky {
+        position: sticky;
+        top: 120px;
+      }
+      .process-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .process-step {
+        border: 1px solid var(--glass-border);
+        padding: 40px;
+        position: relative;
+        background: var(--glass-bg);
+        overflow: hidden;
+        transition: all 0.3s;
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      .process-step.visible {
+        animation: fadeRight 0.6s forwards;
+      }
+      .process-step:hover {
+        border-color: rgba(155, 16, 16, 0.3);
+        background: rgba(74, 4, 4, 0.05);
+      }
+      .step-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 72px;
+        color: rgba(255, 255, 255, 0.03);
+        position: absolute;
+        right: 24px;
+        top: 0;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .step-label {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--burgundy-glow);
+        margin-bottom: 12px;
+      }
+      .step-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 26px;
+        letter-spacing: 0.05em;
+        color: var(--white);
+        margin-bottom: 12px;
+      }
+      .step-desc {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--cream-dim);
+      }
+
+      /* ── PACKAGES / CONTACT ── */
+      #contact {
+        background: linear-gradient(135deg, #0d0505 0%, var(--obsidian) 100%);
+      }
+      .packages-header {
+        text-align: center;
+        margin-bottom: 80px;
+      }
+      .packages-header .section-label {
+        justify-content: center;
+        display: flex;
+      }
+      .packages-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        margin-bottom: 80px;
+      }
+      .pkg-card {
+        border: 1px solid var(--glass-border);
+        background: var(--glass-bg);
+        padding: 48px 40px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .pkg-card.visible {
+        animation: fadeUp 0.7s forwards;
+      }
+      .pkg-card.featured {
+        background: rgba(74, 4, 4, 0.15);
+        border-color: rgba(155, 16, 16, 0.4);
+      }
+      .pkg-card.featured::before {
+        content: "MOST POPULAR";
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-family: "DM Mono", monospace;
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        background: var(--burgundy-glow);
+        color: var(--white);
+        padding: 6px 14px;
+      }
+      .pkg-card:hover {
+        border-color: rgba(155, 16, 16, 0.5);
+        transform: translateY(-6px);
+      }
+      .pkg-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        letter-spacing: 0.05em;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .pkg-tagline {
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--burgundy-glow);
+        margin-bottom: 32px;
+      }
+      .pkg-price {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 64px;
+        line-height: 1;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+      .pkg-price span {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--cream-dim);
+      }
+      .pkg-note {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--cream-dim);
+        margin-bottom: 40px;
+      }
+      .pkg-features {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 40px;
+      }
+      .pkg-features li {
+        font-size: 13px;
+        color: var(--cream-dim);
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        line-height: 1.5;
+      }
+      .pkg-features li::before {
+        content: "—";
+        color: var(--burgundy-glow);
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .pkg-cta {
+        display: block;
+        width: 100%;
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 14px;
+        text-decoration: none;
+        border: 1px solid var(--glass-border-strong);
+        color: var(--cream);
+        transition: all 0.3s;
+        cursor: none;
+      }
+      .pkg-card.featured .pkg-cta {
+        background: var(--burgundy-glow);
+        border-color: var(--burgundy-glow);
+        color: var(--white);
+      }
+      .pkg-cta:hover {
+        background: var(--burgundy-glow);
+        border-color: var(--burgundy-glow);
+        color: var(--white);
+      }
+
+      /* ── CONTACT FORM ── */
+      .contact-bottom {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        margin-top: 80px;
+        padding-top: 80px;
+        border-top: 1px solid var(--glass-border);
+      }
+      .contact-info h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 48px;
+        line-height: 1;
+        color: var(--white);
+        margin-bottom: 20px;
+      }
+      .contact-info p {
+        font-size: 15px;
+        line-height: 1.75;
+        color: var(--cream-dim);
+        margin-bottom: 32px;
+      }
+      .contact-detail {
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        color: var(--cream);
+        display: block;
+        margin-bottom: 8px;
+      }
+      .contact-detail a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .contact-detail a:hover {
+        color: var(--burgundy-glow);
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .form-label {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+      }
+      .form-input,
+      .form-textarea,
+      .form-select {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        padding: 14px 16px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--cream);
+        transition: border-color 0.3s;
+        outline: none;
+        cursor: none;
+      }
+      .form-input:focus,
+      .form-textarea:focus,
+      .form-select:focus {
+        border-color: rgba(155, 16, 16, 0.5);
+        background: rgba(74, 4, 4, 0.05);
+      }
+      .form-select {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: var(--obsidian-3);
+        cursor: none;
+      }
+      .form-textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .form-submit {
+        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        background: var(--burgundy-glow);
+        color: var(--white);
+        border: none;
+        padding: 16px 40px;
+        cursor: none;
+        transition: all 0.3s;
+        align-self: flex-start;
+        position: relative;
+        overflow: hidden;
+      }
+      .form-submit::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+      }
+      .form-submit:hover::after {
+        transform: translateX(0);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: #060606;
+        padding: 48px;
+        border-top: 1px solid var(--glass-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.15em;
+        color: var(--white);
+      }
+      .footer-logo span {
+        color: var(--burgundy-glow);
+      }
+      .footer-copy {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        color: var(--cream-dim);
+      }
+      .footer-links {
+        display: flex;
+        gap: 32px;
+      }
+      .footer-links a {
+        font-family: "DM Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--cream-dim);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .footer-links a:hover {
+        color: var(--cream);
+      }
+
+      /* ── DIVIDER ── */
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--glass-border-strong),
+          transparent
+        );
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeRight {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      @keyframes scrollPulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        .services-grid,
+        .niches-grid,
+        .packages-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .stack-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .process-layout {
+          grid-template-columns: 1fr;
+        }
+        .process-sticky {
+          position: static;
+        }
+        .contact-bottom {
+          grid-template-columns: 1fr;
+        }
+        .hero-stats {
+          display: none;
+        }
+      }
+      @media (max-width: 768px) {
+        nav {
+          padding: 20px 24px;
+        }
+        nav.scrolled {
+          padding: 14px 24px;
+        }
+        .nav-links {
+          display: none;
+        }
+        section {
+          padding: 80px 24px;
+        }
+        #hero {
+          padding: 0 24px 80px;
+        }
+        .hero-title {
+          font-size: clamp(52px, 14vw, 80px);
+        }
+        .services-grid,
+        .niches-grid,
+        .packages-grid,
+        .stack-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          flex-direction: column;
+          gap: 24px;
+          text-align: center;
+        }
+        .footer-links {
+          justify-content: center;
+        }
+        .services-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor" id="cursor">
+      <div class="cursor-dot"></div>
+    </div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <div class="logo">BRGND<span>Y</span></div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#stack">Stack</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Packages</a>
+        <a href="#contact" class="nav-cta">Get Started</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-noise"></div>
+      <div class="hero-grid"></div>
+
+      <div class="hero-eyebrow">— Digital Flagship Studio / Est. 2024</div>
+      <h1 class="hero-title">
+        WE BUILD<br /><span class="accent">DIGITAL</span><br />FLAGSHIPS.
+      </h1>
+      <p class="hero-sub">
+        High-end frontend development for premium brands and rapid-growth
+        startups. We craft experiences that command attention and convert at
+        scale.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Start a Project</a>
+        <a href="#services" class="btn-ghost">View Services</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">100</div>
+          <div class="stat-label">Lighthouse Score</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">48H</div>
+          <div class="stat-label">Audit Turnaround</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3X</div>
+          <div class="stat-label">Avg. Conv. Lift</div>
+        </div>
+      </div>
+
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <div class="scroll-text">Scroll</div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-section">
+      <div class="marquee-track">
+        <span class="marquee-item"><span>★</span> Next.js Development</span>
+        <span class="marquee-item"><span>★</span> Supabase Integration</span>
+        <span class="marquee-item"><span>★</span> Visual Audits</span>
+        <span class="marquee-item"><span>★</span> Tailwind CSS</span>
+        <span class="marquee-item"><span>★</span> Agentic AI Workflows</span>
+        <span class="marquee-item"><span>★</span> Performance Engineering</span>
+        <span class="marquee-item"><span>★</span> Brand Experience</span>
+        <span class="marquee-item"><span>★</span> Next.js Development</span>
+        <span class="marquee-item"><span>★</span> Supabase Integration</span>
+        <span class="marquee-item"><span>★</span> Visual Audits</span>
+        <span class="marquee-item"><span>★</span> Tailwind CSS</span>
+        <span class="marquee-item"><span>★</span> Agentic AI Workflows</span>
+        <span class="marquee-item"><span>★</span> Performance Engineering</span>
+        <span class="marquee-item"><span>★</span> Brand Experience</span>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="services-header">
+        <div>
+          <div class="section-label">02 — Services</div>
+          <h2 class="section-title">WHAT WE<br />DELIVER.</h2>
+        </div>
+        <p
+          style="
+            max-width: 360px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--cream-dim);
+          "
+        >
+          Three focused service pillars. Each engineered to move the needle for
+          ambitious brands that refuse to settle for average.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-num">01 — Bespoke Web</div>
+          <div class="service-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"
+              />
+            </svg>
+          </div>
+          <div class="service-name">Bespoke Web Experiences</div>
+          <p class="service-desc">
+            Custom Next.js architectures paired with Tailwind CSS design
+            systems. Built for 100/100 Lighthouse scores, edge-ready
+            deployments, and conversions that compound over time.
+          </p>
+          <div class="service-tags">
+            <span class="tag">Next.js 14</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Edge-Ready</span>
+          </div>
+        </div>
+
+        <div class="service-card" style="animation-delay: 0.15s">
+          <div class="service-num">02 — Backend</div>
+          <div class="service-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
+              />
+            </svg>
+          </div>
+          <div class="service-name">Cloud-Native Scale</div>
+          <p class="service-desc">
+            Supabase-powered backends that grow with you. Real-time data, auth,
+            storage and edge functions — all configured for your exact use case,
+            not a generic boilerplate.
+          </p>
+          <div class="service-tags">
+            <span class="tag">Supabase</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Edge Functions</span>
+            <span class="tag">Real-Time</span>
+          </div>
+        </div>
+
+        <div class="service-card" style="animation-delay: 0.3s">
+          <div class="service-num">03 — Audit</div>
+          <div class="service-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.2">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+          </div>
+          <div class="service-name">Visual Audits</div>
+          <p class="service-desc">
+            We dissect outdated web presences and rebuild them into
+            high-conversion assets. 48-hour turnaround. Full UX teardown,
+            performance analysis, and an actionable roadmap.
+          </p>
+          <div class="service-tags">
+            <span class="tag">CRO</span>
+            <span class="tag">Performance</span>
+            <span class="tag">UX Analysis</span>
+            <span class="tag">48H Delivery</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NICHES -->
+    <section id="niches">
+      <div class="niches-intro">
+        <div class="section-label">03 — Target Niches</div>
+        <h2 class="section-title">WHO WE<br />WORK WITH.</h2>
+        <p>
+          We go deep, not wide. Three niche verticals where we've refined our
+          craft to deliver outsized ROI for discerning operators.
+        </p>
+      </div>
+
+      <div class="niches-grid">
+        <div class="niche-card">
+          <div
+            class="niche-bg"
+            style="
+              background: radial-gradient(
+                ellipse at center,
+                #3a0a0a 0%,
+                #0a0a0a 100%
+              );
+            "
+          ></div>
+          <div class="niche-num">01</div>
+          <div class="niche-content">
+            <div class="niche-sub">Lifestyle & Wellness</div>
+            <div class="niche-name">BOUTIQUE GYMS & ROASTERIES</div>
+            <p class="niche-desc">
+              Premium wellness studios and specialty coffee brands that command
+              a premium price need a digital presence that matches their
+              in-person experience.
+            </p>
+          </div>
+        </div>
+
+        <div class="niche-card" style="animation-delay: 0.15s">
+          <div
+            class="niche-bg"
+            style="
+              background: radial-gradient(
+                ellipse at center,
+                #1a0505 0%,
+                #0a0a0a 100%
+              );
+            "
+          ></div>
+          <div class="niche-num">02</div>
+          <div class="niche-content">
+            <div class="niche-sub">Growth Stage</div>
+            <div class="niche-name">TECH STARTUPS</div>
+            <p class="niche-desc">
+              Seed-to-Series B companies that need enterprise-grade websites at
+              startup speed. We ship fast without cutting corners on quality or
+              performance.
+            </p>
+          </div>
+        </div>
+
+        <div class="niche-card" style="animation-delay: 0.3s">
+          <div
+            class="niche-bg"
+            style="
+              background: radial-gradient(
+                ellipse at center,
+                #2a0808 0%,
+                #0a0a0a 100%
+              );
+            "
+          ></div>
+          <div class="niche-num">03</div>
+          <div class="niche-content">
+            <div class="niche-sub">Local Premium</div>
+            <div class="niche-name">PREMIUM LOCAL HUBS</div>
+            <p class="niche-desc">
+              High-end restaurants, members clubs, and boutique hospitality
+              venues that want their online presence to whisper "luxury" before
+              a guest walks through the door.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section id="stack">
+      <div class="stack-header">
+        <div class="section-label">04 — Technology</div>
+        <h2 class="section-title">OUR STACK.</h2>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-card">
+          <div class="stack-logo">N</div>
+          <div class="stack-name">Next.js</div>
+          <p class="stack-use">
+            App Router, Server Components, ISR/SSG for blazing performance
+          </p>
+        </div>
+        <div class="stack-card" style="animation-delay: 0.1s">
+          <div class="stack-logo">SB</div>
+          <div class="stack-name">Supabase</div>
+          <p class="stack-use">
+            Postgres, Auth, Storage, Realtime & Edge Functions
+          </p>
+        </div>
+        <div class="stack-card" style="animation-delay: 0.2s">
+          <div class="stack-logo">TW</div>
+          <div class="stack-name">Tailwind CSS</div>
+          <p class="stack-use">
+            Utility-first design systems built for scale and consistency
+          </p>
+        </div>
+        <div class="stack-card" style="animation-delay: 0.3s">
+          <div class="stack-logo">AI</div>
+          <div class="stack-name">Agentic AI</div>
+          <p class="stack-use">
+            LLM-powered workflows, chatbots, and intelligent automations
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process">
+      <div class="process-layout">
+        <div class="process-sticky">
+          <div class="section-label">05 — How It Works</div>
+          <h2 class="section-title">OUR<br />PROCESS.</h2>
+          <p
+            style="
+              margin-top: 24px;
+              font-size: 14px;
+              line-height: 1.8;
+              color: var(--cream-dim);
+            "
+          >
+            Four ruthlessly efficient phases. No bloated discovery sprints. No
+            design-by-committee. Just focused execution that ships.
+          </p>
+        </div>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-num">01</div>
+            <div class="step-label">Phase One</div>
+            <div class="step-title">Discover & Audit</div>
+            <p class="step-desc">
+              We start with a 48-hour visual audit of your current presence. We
+              identify every friction point, every missed opportunity, and every
+              performance bottleneck.
+            </p>
+          </div>
+          <div class="process-step" style="animation-delay: 0.1s">
+            <div class="step-num">02</div>
+            <div class="step-label">Phase Two</div>
+            <div class="step-title">Design & Architect</div>
+            <p class="step-desc">
+              High-fidelity Figma prototypes + technical architecture decisions
+              made in parallel. You see the vision before a single line of
+              production code is written.
+            </p>
+          </div>
+          <div class="process-step" style="animation-delay: 0.2s">
+            <div class="step-num">03</div>
+            <div class="step-label">Phase Three</div>
+            <div class="step-title">Build & Integrate</div>
+            <p class="step-desc">
+              Production-grade Next.js development with daily preview
+              deployments. Supabase backend configured, tested, and secured.
+              Full CI/CD pipeline from day one.
+            </p>
+          </div>
+          <div class="process-step" style="animation-delay: 0.3s">
+            <div class="step-num">04</div>
+            <div class="step-label">Phase Four</div>
+            <div class="step-title">Launch & Optimize</div>
+            <p class="step-desc">
+              Zero-downtime deployment to Vercel Edge Network. Post-launch
+              performance monitoring, A/B testing setup, and conversion rate
+              optimization in the first 30 days.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKAGES / CONTACT -->
+    <section id="contact">
+      <div class="packages-header">
+        <div class="section-label">06 — Packages</div>
+        <h2 class="section-title">PRODUCTIZED<br />PACKAGES.</h2>
+      </div>
+
+      <div class="packages-grid">
+        <div class="pkg-card">
+          <div class="pkg-name">AUDIT</div>
+          <div class="pkg-tagline">Start with Clarity</div>
+          <div class="pkg-price">₹29K<span> /one-time</span></div>
+          <div class="pkg-note">48-hour turnaround</div>
+          <ul class="pkg-features">
+            <li>Full visual & UX teardown</li>
+            <li>Lighthouse performance deep-dive</li>
+            <li>Competitor benchmark analysis</li>
+            <li>Conversion opportunity mapping</li>
+            <li>Prioritized roadmap document</li>
+          </ul>
+          <a href="#contact-form" class="pkg-cta">Start Audit</a>
+        </div>
+
+        <div class="pkg-card featured">
+          <div class="pkg-name">FLAGSHIP</div>
+          <div class="pkg-tagline">The Full Build</div>
+          <div class="pkg-price">₹1.8L<span> /project</span></div>
+          <div class="pkg-note">4–6 week delivery</div>
+          <ul class="pkg-features">
+            <li>Custom Next.js + Tailwind build</li>
+            <li>Supabase backend integration</li>
+            <li>Full design system creation</li>
+            <li>CMS + content migration</li>
+            <li>Performance & SEO optimization</li>
+            <li>60-day post-launch support</li>
+          </ul>
+          <a href="#contact-form" class="pkg-cta">Build Flagship</a>
+        </div>
+
+        <div class="pkg-card">
+          <div class="pkg-name">RETAINER</div>
+          <div class="pkg-tagline">Ongoing Excellence</div>
+          <div class="pkg-price">₹55K<span> /month</span></div>
+          <div class="pkg-note">3-month minimum</div>
+          <ul class="pkg-features">
+            <li>40 development hours/month</li>
+            <li>Priority Slack support channel</li>
+            <li>Monthly performance reports</li>
+            <li>Ongoing CRO testing</li>
+            <li>AI workflow development</li>
+          </ul>
+          <a href="#contact-form" class="pkg-cta">Start Retainer</a>
+        </div>
+      </div>
+
+      <div class="contact-bottom" id="contact-form">
+        <div class="contact-info">
+          <h3>READY TO BUILD<br />YOUR FLAGSHIP?</h3>
+          <p>
+            Drop us a brief about your project. We respond within 4 business
+            hours with a custom approach — not a template pitch deck.
+          </p>
+          <span class="contact-detail"
+            ><a href="mailto:hello@brgndy.studio">hello@brgndy.studio</a></span
+          >
+          <span class="contact-detail"
+            ><a href="tel:+919999999999">+91 99999 99999</a></span
+          >
+          <span class="contact-detail"
+            >Bangalore, India · Remote Worldwide</span
+          >
+        </div>
+
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input class="form-input" type="text" placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Company</label>
+              <input
+                class="form-input"
+                type="text"
+                placeholder="Your company"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              class="form-input"
+              type="email"
+              placeholder="your@email.com"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service Interest</label>
+            <select class="form-select">
+              <option value="" style="background: #111">
+                Select a package
+              </option>
+              <option value="audit" style="background: #111">
+                Audit — ₹29K
+              </option>
+              <option value="flagship" style="background: #111">
+                Flagship Build — ₹1.8L
+              </option>
+              <option value="retainer" style="background: #111">
+                Monthly Retainer — ₹55K
+              </option>
+              <option value="custom" style="background: #111">
+                Custom Scope
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tell us about your project</label>
+            <textarea
+              class="form-textarea"
+              placeholder="What do you need? What's the timeline? What matters most to you?"
+            ></textarea>
+          </div>
+          <button class="form-submit">Send Brief →</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">BRGND<span>Y</span> DIGITAL</div>
+      <div class="footer-copy">
+        © 2024 BRGNDY Digital Services. All rights reserved.
+      </div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#stack">Stack</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </footer>
+
+    <script>
+      // Custom cursor
+      const cursor = document
+        .getElementById("cursor")
+        .querySelector(".cursor-dot");
+      const ring = document.getElementById("cursorRing");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        cursor.style.left = mx + "px";
+        cursor.style.top = my + "px";
+      });
+
+      function animateRing() {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      document
+        .querySelectorAll(
+          "a, button, .service-card, .niche-card, .stack-card, .pkg-card",
+        )
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            ring.style.width = "60px";
+            ring.style.height = "60px";
+            ring.style.borderColor = "rgba(155,16,16,0.6)";
+          });
+          el.addEventListener("mouseleave", () => {
+            ring.style.width = "40px";
+            ring.style.height = "40px";
+            ring.style.borderColor = "rgba(232,224,213,0.4)";
+          });
+        });
+
+      // Nav scroll
+      const nav = document.getElementById("nav");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 60);
+      });
+
+      // Intersection observer for scroll animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(
+          ".service-card, .niche-card, .stack-card, .process-step, .pkg-card",
+        )
+        .forEach((el) => {
+          observer.observe(el);
+        });
+    </script>
+  </body>
+</html>
